@@ -15,7 +15,7 @@ import {HEROES} from './mock-heroes';
 @Injectable()
 export class HeroService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    private heroesUrl = 'src/app/service/app/heroes.json';  // URL to web API
+    private heroesUrl = "api/heroes";//'src/app/service/app/heroes.json';  // URL to web API
     constructor (private http: Http) {}
     getHeroes(): Promise<Hero[]> {
         return this.http.get(this.heroesUrl)
@@ -23,7 +23,27 @@ export class HeroService {
             .then(response => response.json().data as Hero[])
             .catch(this.handleError);
     }
-
+    getHero(id: number): Promise<Hero> {
+    	const url = `${this.heroesUrl}/${id}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response.json().data as Hero)
+            .catch(this.handleError);
+    }
+    update(hero: Hero): Promise<Hero> {
+      const url = `${this.heroesUrl}/${hero.id}`;
+      return this.http
+        .put(url, JSON.stringify(hero), {headers: this.headers})
+        .toPromise()
+        .then(() => hero)
+        .catch(this.handleError);
+    }
+ //    getHeroesSlowly(): Promise<Hero[]> {
+	// 	  return new Promise(resolve => {
+	// 	    // Simulate server latency with 2 second delay
+	// 	    setTimeout(() => resolve(HEROES), 2000);
+	// 	  });
+	// }
     private extractData(res: Response) {
       debugger;
       let body = res.json();
@@ -43,14 +63,4 @@ export class HeroService {
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
-    getHero(id: number): Promise<Hero> {
-    	return this.getHeroes()
-             .then(heroes => heroes.find(hero => hero.id === id));
-    }
-    getHeroesSlowly(): Promise<Hero[]> {
-		  return new Promise(resolve => {
-		    // Simulate server latency with 2 second delay
-		    setTimeout(() => resolve(HEROES), 2000);
-		  });
-	}
 }
