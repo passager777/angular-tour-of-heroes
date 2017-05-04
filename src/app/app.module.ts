@@ -15,6 +15,7 @@ import { AppRoutingModule }     from './app-routing.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { LzbBlurFocusDirective } from './directive/lzb-blur-focus.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroesComponent,
     DashboardComponent,
     HeroSearchComponent,
+    LzbBlurFocusDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 <div id="search-component">
 	<h4>Hero Search</h4>
-	<input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-	<div class="searchArea">
+	<input #searchBox lzbBlurFocus id="search-box" (keyup)="search(searchBox.value)" (focus)="isFocus=true;" (blur)="isFocus=false;" />
+	<div [style.display]="isFocus?'block':'none'" class="searchArea">
 		<!-- |管道符 async  -->
 		<div *ngFor="let hero of heroes | async" (click)="gotoDetail(hero)" class="search-result" >
 			{{hero.name}}

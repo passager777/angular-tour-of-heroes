@@ -24,6 +24,7 @@ import { Hero } from '../model/hero';
 export class HeroSearchComponent implements OnInit {
   heroes: Observable<Hero[]>;
   element: ElementRef;
+  isFocus: boolean;
   private searchTerms = new Subject<string>();
 
   constructor(
@@ -41,7 +42,6 @@ export class HeroSearchComponent implements OnInit {
   	debugger;
   	this.element.nativeElement.style.display = "none";
   }
-
   ngOnInit() {
   	this.heroes = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
