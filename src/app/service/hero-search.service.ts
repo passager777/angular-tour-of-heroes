@@ -16,7 +16,6 @@ export class HeroSearchService {
                .map(response => response.json().data as Hero[]);
   }
   onBlur():void {
-  	debugger;
   	this.element.nativeElement.style.display = "none";
   }
 }
